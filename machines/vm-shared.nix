@@ -2,16 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-# sudo nixos-rebuild switch
 {
   config, pkgs, lib, currentSystem, currentSystemName, ...
-}: {
+}:
+
+let
+  # пусть до файла со списком раширений
+  vscodeExt = lib.importJSON ./shared/vscode/extensions/vscode.json;
+in {
+  imports = [
+    ./shared/vscode/vscode.nix
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "atom"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -73,11 +81,15 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "warinyourself";
+
+  vscode.user = "warinyourself";
+  vscode.homeDir = "/home/warinyourself";
+  vscode.extensions = with pkgs.vscode-extensions; [ ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace vscodeExt;
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -95,9 +107,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    jq
     git
+    curl
     htop
     wget
+    unzip
     screenfetch
 
     tdesktop

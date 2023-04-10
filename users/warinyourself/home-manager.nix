@@ -19,8 +19,16 @@
     pkgs.ripgrep
     pkgs.tree
     pkgs.watch
+
     pkgs.openvpn3
+    pkgs.blender
+    pkgs.mattermost
+    pkgs.teams
   ];
+
+  services.syncthing = {
+    enable = true;
+  };
 
   #---------------------------------------------------------------------
   # Programs
