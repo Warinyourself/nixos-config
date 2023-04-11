@@ -2,6 +2,7 @@
 #!nix-shell -i bash -p curl jq unzip
 set -eu -o pipefail
 
+# code --list-extensions >> /etc/nixos/machines/shared/vscode/extensions/list-extensions
 # sh /etc/nixos/machines/shared/vscode/extensions/build-extensions.sh
 # Helper to just fail with a message and non-zero exit code.
 function fail() {
