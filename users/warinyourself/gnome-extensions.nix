@@ -37,7 +37,7 @@ in {
       ];
 
     "org/gnome/shell".disabled-extensions = [];
-    "org/gnome/shell".favorite-apps = ["blender.desktop" "org.gnome.Nautilus.desktop" "org.telegram.desktop.desktop" "org.gnome.Settings.desktop" "obsidian.desktop" "code.desktop" "com.github.IsmaelMartinez.teams_for_linux.desktop" "com.mattermost.Desktop.desktop" "virt-manager.desktop" "org.gnome.Terminal.desktop"];
+    "org/gnome/shell".favorite-apps=["brave-browser.desktop" "org.telegram.desktop.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Settings.desktop" "obsidian.desktop" "code.desktop" "org.gnome.Terminal.desktop" "blender.desktop"];
 
     "org/gnome/shell/extensions/apps-menu" = {enabled = true;};
     "org/gnome/shell/extensions/appindicator".tray-pos = "right";
@@ -68,10 +68,9 @@ in {
     # Set the default window for primary applications
     "org/gnome/shell/extensions/auto-move-windows" = {
       application-list = [
-        "firefox.desktop:1"
+        "firefox.desktop:6"
         "brave.desktop:1"
         "vscode.desktop:2"
-        "org.gnome.Console.desktop:3"
         "telegram_desktop.desktop:4"
       ];
     };
@@ -138,7 +137,23 @@ in {
     };
 
     "org/gnome/shell/keybindings" = {
-      show-screenshot-ui = ["<Shift><Super>s"];
+      switch-to-application-1 = [""];
+      switch-to-application-2 = [""];
+      switch-to-application-3 = [""];
+      switch-to-application-4 = [""];
+      switch-to-application-5 = [""];
+      switch-to-application-6 = [""];
+      switch-to-application-7 = [""];
+      switch-to-application-8 = [""];
+      switch-to-application-9 = [""];
+      toggle-message-tray = ["<Super>n <Super>n"];
+    };
+
+    "org/gnome/mutter" = {
+      attach-modal-dialogs = true;
+      dynamic-workspaces = false;
+      edge-tiling = true;
+      workspaces-only-on-primary = true;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -146,7 +161,6 @@ in {
       control-center = ["<Super>s"];
       custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/"];
 
-      show-screenshot-ui = ["<Shift><Super>s"];
       home = ["<Super>e"];
       www = ["<Super>b"];
     };

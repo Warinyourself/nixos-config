@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
   # Import gnome settings
-  imports = [ ./gnome-extensions.nix ];
+  imports = [ ./gnome-extensions.nix ./openvpn.nix ];
 
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
@@ -20,13 +20,12 @@
     pkgs.tree
     pkgs.watch
 
-    pkgs.openvpn3
     pkgs.blender
-    pkgs.mattermost
-    pkgs.teams
+    pkgs.mattermost-desktop
   ];
 
   services.syncthing = {
+    # https://search.nixos.org/options?channel=22.11&from=0&size=50&sort=relevance&type=packages&query=syncthing
     enable = true;
   };
 

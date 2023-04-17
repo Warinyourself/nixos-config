@@ -14,7 +14,6 @@ ms-vscode-remote.remote-ssh
 ms-vscode.cmake-tools
 piousdeer.adwaita-theme
 ritwickdey.LiveServer
-WakaTime.vscode-wakatime
 wix.vscode-import-cost
 cschlosser.doxdocgen
 dsznajder.es7-react-js-snippets
@@ -41,5 +40,4 @@ rvest.vs-code-prettier-eslint
 streetsidesoftware.code-spell-checker
 octref.vetur
 Vue.volar
-WakaTime.vscode-wakatime
 wayou.vscode-todo-highlight
