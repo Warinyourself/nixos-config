@@ -24,11 +24,6 @@
     pkgs.mattermost-desktop
   ];
 
-  services.syncthing = {
-    # https://search.nixos.org/options?channel=22.11&from=0&size=50&sort=relevance&type=packages&query=syncthing
-    enable = true;
-  };
-
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
@@ -48,6 +43,14 @@
       gs = "git status";
       gt = "git tag";
     };
+  };
+
+  home.file = {
+    "./Documents/Programming/.stignore".text = ''
+      **/node_modules
+      **/dist
+      **/.nuxt
+    '';
   };
 
   programs.vscode.enable = true;

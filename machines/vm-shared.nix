@@ -138,7 +138,6 @@ in {
     etcher
     webtorrent_desktop
     obsidian
-    syncthing
     
     libvncserver
     vscode
