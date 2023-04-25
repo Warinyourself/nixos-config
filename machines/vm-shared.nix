@@ -1,16 +1,12 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config, pkgs, lib, currentSystem, currentSystemName, ...
 }:
-
 let
   # Путь до файла со списком раширений
   vscodeExt = lib.importJSON ./shared/vscode/extensions/vscode.json;
 in {
   imports = [
+    ./shared/syncthing.nix
     ./shared/vscode/vscode.nix
   ];
 
@@ -121,15 +117,23 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    fd
     jq
     git
+    fzf
+    zsh
+    bat
     curl
+    tree
     htop
     wget
     unzip
+    watch
     killall
+    ripgrep
     screenfetch
 
+    neovim
     tdesktop
     baobab
     brave
