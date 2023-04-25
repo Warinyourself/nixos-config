@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }: {
-  # Import gnome settings
-  imports = [ ./gnome-extensions.nix ./openvpn.nix ];
+  imports = [
+    ./nvim.nix
+    ./vscode.nix
+    ./openvpn.nix
+    ./gnome-extensions.nix
+  ];
 
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
@@ -12,14 +16,12 @@
   # Packages
   #---------------------------------------------------------------------
   home.packages = [
-    pkgs.bat
-    pkgs.fd
-    pkgs.fzf
-    pkgs.jq
-    pkgs.ripgrep
-    pkgs.tree
-    pkgs.watch
+    pkgs.veracrypt
 
+    pkgs.freecad
+    pkgs.kicad
+
+    pkgs.krita
     pkgs.blender
     pkgs.mattermost-desktop
   ];
@@ -45,44 +47,6 @@
     };
   };
 
-  home.file = {
-    "./Documents/Programming/.stignore".text = ''
-      **/node_modules
-      **/dist
-      **/.nuxt
-    '';
-  };
-
-  programs.vscode.enable = true;
-  programs.vscode.keybindings = [
-    {
-      key = "ctrl+tab";
-      command = "workbench.action.nextEditor";
-    }
-    {
-      key = "ctrl+pagedown";
-      command = "-workbench.action.nextEditor";
-    }
-    {
-      key = "ctrl+shift+tab";
-      command = "workbench.action.previousEditor";
-    }
-    {
-      key = "ctrl+pageup";
-      command = "-workbench.action.previousEditor";
-    }
-    { key = "ctrl+, ctrl+,"; command = "workbench.action.openSettings2"; }
-    { key = "ctrl+, ctrl+."; command = "workbench.action.openGlobalKeybindings"; }
-  ];
-
-  programs.vscode.userSettings = {
-    "security.workspace.trust.untrustedFiles" = "open";
-    "terminal.integrated.defaultProfile.linux" = "fish";
-    "workbench.colorTheme" = "Adwaita Dark";
-    "files.autoSave" = "off";
-    "[nix]"."editor.tabSize" = 2;
-  };
-
   programs.fish = {
     enable = true;
     interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" [
@@ -103,6 +67,16 @@
     };
   };
 
+  home.file = {
+    "./Documents/Programming/.stignore".text = ''
+      **/node_modules
+      **/dist
+      **/.nuxt
+      **/.next
+      **/.yarn
+    '';
+  };
+
   programs.git = {
     enable = true;
     userName = "Warinyourself";
@@ -110,6 +84,9 @@
     aliases = {
       prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       root = "rev-parse --show-toplevel";
+    };
+    extraConfig = {
+      core.editor = "nvim";
     };
   };
 }

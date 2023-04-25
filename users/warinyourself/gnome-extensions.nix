@@ -15,7 +15,7 @@ in {
     "org/gnome/desktop/app-folders".folder-children=["Utilities" "1e14a022-3b53-4616-a07e-91786008059e"];
 
     "org/gnome/desktop/app-folders/folders/1e14a022-3b53-4616-a07e-91786008059e" = {
-      apps = ["org.keepassxc.KeePassXC.desktop" "rest.insomnia.Insomnia.desktop" "balena-etcher.desktop" "syncthing-ui.desktop" "syncthing-start.desktop"];
+      apps = ["org.keepassxc.KeePassXC.desktop" "rest.insomnia.Insomnia.desktop" "balena-etcher.desktop"];
       name = "Полезное";
       translate = false;
     };
@@ -36,7 +36,7 @@ in {
         "user-theme@gnome-shell-extensions.gcampax.github.com"
       ];
 
-    "org/gnome/shell".disabled-extensions = [];
+    "org/gnome/shell".disabled-extensions = ["apps-menu@gnome-shell-extensions.gcampax.github.com"];
     "org/gnome/shell".favorite-apps=["brave-browser.desktop" "org.telegram.desktop.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Settings.desktop" "obsidian.desktop" "code.desktop" "org.gnome.Terminal.desktop" "blender.desktop"];
 
     "org/gnome/shell/extensions/apps-menu" = {enabled = true;};
@@ -45,7 +45,7 @@ in {
     "org/gnome/shell/extensions/vitals" = {
       hide-icons = false;
       hide-zeros = false;
-      hot-sensors = ["_memory_usage_" "__temperature_avg__" "_processor_usage_" "_processor_frequency_"];
+      hot-sensors = ["_memory_usage_" "__temperature_avg__" "_processor_usage_"];
       use-higher-precision = false;
     };
 

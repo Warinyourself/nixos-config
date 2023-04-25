@@ -7,20 +7,14 @@
   };
 
   config = {
-    ###
-    # DIRTY HACK
     # This will fetch latest packages on each rebuild, whatever channel you are at
     nixpkgs.overlays = [
       (self: super:
         let latestPkgs = import (fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixpkgs-unstable.tar.gz) {
             config.allowUnfree = true;
           };
-        in lib.genAttrs config.nixpkgs.latestPackages (pkg: latestPkgs."${pkg}")
-    
-	  )
-    ];
-    # END DIRTY HACK
-    ###
+        in lib.genAttrs config.nixpkgs.latestPackages (pkg: latestPkgs."${pkg}")    
+    )];
 
     environment.systemPackages = [ pkgs.vscode ];
 
