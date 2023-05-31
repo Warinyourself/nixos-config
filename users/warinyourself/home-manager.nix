@@ -26,6 +26,13 @@
     pkgs.mattermost-desktop
   ];
 
+  # Настройка для работы nvidia в blender
+  nixpkgs.config.packageOverrides = self : rec {
+    blender = self.blender.override {
+      cudaSupport = true;
+    };
+  };
+
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------

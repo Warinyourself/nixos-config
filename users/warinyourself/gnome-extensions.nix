@@ -39,7 +39,7 @@ in {
     "org/gnome/shell".disabled-extensions = ["apps-menu@gnome-shell-extensions.gcampax.github.com"];
     "org/gnome/shell".favorite-apps=["brave-browser.desktop" "org.telegram.desktop.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Settings.desktop" "obsidian.desktop" "code.desktop" "org.gnome.Terminal.desktop" "blender.desktop"];
 
-    "org/gnome/shell/extensions/apps-menu" = {enabled = true;};
+    "org/gnome/shell/extensions/apps-menu" = { enabled = true; };
     "org/gnome/shell/extensions/appindicator".tray-pos = "right";
 
     "org/gnome/shell/extensions/vitals" = {
@@ -91,6 +91,8 @@ in {
       speed = 1.0;
       tap-to-click = true;
       two-finger-scrolling-enabled = true;
+      # Enable touchpad while typing
+      disable-while-typing = false;
     };
 
     "org/gnome/desktop/privacy".report-technical-problems = true;
