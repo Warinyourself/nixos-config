@@ -1,8 +1,6 @@
-{
-  config, pkgs, lib, currentSystem, currentSystemName, ...
-}:
+{ config, pkgs, lib, currentSystem, currentSystemName, ... }:
 let
-  # Путь до файла со списком раширений
+  # Путь до файла со списком раширений.
   vscodeExt = lib.importJSON ./shared/vscode/extensions/vscode.json;
 in {
   imports = [
@@ -18,10 +16,6 @@ in {
   };
 
   networking = {
-    useDHCP = false;
-    firewall.enable = false; # Sure, why not?
-    dhcpcd.enable = false; # Handled by `networkd`, can be disabled.
-
     hostName = "atom"; # Define your hostname.
     networkmanager = {
       enable = true;
@@ -32,8 +26,6 @@ in {
     enable = true;
   };
   
-  networking.resolvconf.dnsExtensionMechanism = false;
-
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
@@ -79,7 +71,7 @@ in {
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
+      # If you want to use JACK applications, uncomment this.
       #jack.enable = true;
 
       # use the example session manager (no others are packaged yet so this is enabled by default,
@@ -114,73 +106,112 @@ in {
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    fd
-    jq
-    git
-    fzf
-    zsh
-    bat
-    curl
-    tree
-    htop
-    wget
-    unzip
-    watch
-    killall
-    ripgrep
-    screenfetch
+    fd # A simple, fast and user-friendly alternative to find.
+    jq # A lightweight and flexible command-line JSON processor.
+    git # Distributed version control system.
+    git-crypt # Transparent file encryption in git.
+    gnupg # Modern release of the GNU Privacy Guard, a GPL OpenPGP implementation.
+    fzf # A command-line fuzzy finder written in Go.
+    zsh # The Z shell.
+    bat # A cat(1) clone with syntax highlighting and Git integration.
+    curl # A command line tool for transferring files with URL syntax.
+    tree # Command to produce a depth indented directory listing.
+    htop # An interactive process viewer.
+    wget # Tool for retrieving files using HTTP, HTTPS, and FTP.
+    unzip # An extraction utility for archives compressed in .zip format.
+    killall # killall
+    ripgrep # A utility that combines the usability of The Silver Searcher with the raw speed of grep
+    screenfetch # Fetches system/theme information in terminal for Linux desktop screenshots
 
-    neovim
-    tdesktop
-    baobab
-    brave
-    firefox
-    gparted
-    etcher
-    webtorrent_desktop
-    obsidian
+    lshw # Provide detailed information on the hardware configuration of the machine.
+    usbutils # Tools for working with USB devices, such as lsusb.
+    pciutils # A collection of programs for inspecting and manipulating configuration of PCI devices, such as lspci.
+    toybox # Lightweight implementation of some Unix command line utilities like lsmod.
+
+    gcc # GNU Compiler Collection.
+    cmake # Cross-platform, open-source build system generator.
+    meson # An open source, fast and friendly build system made in Python.
+    gnumake # A tool to control the generation of non-source files from sources. ?
+    mesa-demos # Collection of demos and test programs for OpenGL and Mesa.
+    pkg-config # A tool that allows packages to find out information about other packages (wrapper script). ?
+
+    cudatoolkit # A compiler for NVIDIA GPUs, math libraries, and tools.
+
+    openvpn # A robust and highly flexible tunneling application.
+    update-systemd-resolved # Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus.
+
+    yarn # Fast, reliable, and secure dependency management for javascript.
+    neovim # Vim text editor fork focused on extensibility and agility.
+    vscode # Open source source code editor developed.
+    insomnia # The most intuitive cross-platform REST API Client.
+    figma-linux # Unofficial Electron-based Figma desktop app for Linux.
+
+    dive # A tool for exploring each layer in a docker image.
+    docker-compose # Docker CLI plugin to define and run multi-container applications with Docker.
+    nodejs-16_x # Event-driven I/O framework for the V8 JavaScript engine.
+    python39 # A high-level dynamically-typed programming language.
+
+    libreoffice-fresh # Comprehensive, professional-quality productivity suite, a variant of openoffice.org.
+    fragments # Easy to use BitTorrent client for the GNOME desktop environment.
+    bleachbit # A program to clean your computer.
+    keepassxc # Offline password manager with many features.
+
+    tdesktop # Telegram Desktop messaging app.
+    baobab # Graphical application to analyse disk usage in any GNOME environment.
+    gnome.gnome-disk-utility # A udisks graphical front-end
+
+    brave # Privacy-oriented browser for Desktop and Laptop computers.
+    firefox # A web browser built from Firefox source tree.
+    chromium # An open source web browser from Google.
+    obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files.
+    gparted # Graphical disk partitioning tool.
+    etcher # Flash OS images to SD cards and USB drives, safely and easily.
+    vlc # Cross-platform media player and streaming server.
     
-    libvncserver
-    vscode
-    insomnia
-    keepassxc
-    teams
-    openvpn
-    update-systemd-resolved
-    nodejs-16_x
+    qemu # A generic and open source machine emulator and virtualizer.
+    virt-manager # Desktop user interface for managing virtual machines.
 
-    rhythmbox
+    easytag # View and edit tags for various audio files.
+    picard # The official MusicBrainz tagger.
+    amberol # A small and simple sound and music player.
 
-    gnome.gedit
-    gnome-icon-theme
-    gnome.gnome-music
-    gnome.gnome-terminal
-    gnome.gnome-remote-desktop
-    gnome.gnome-tweaks
-    gnome.dconf-editor
+    gnome.gedit # Official text editor of the GNOME desktop environment.
+    gnome-icon-theme # Collection of icons for the GNOME 2 desktop. ?
+    gnome.gnome-terminal # The GNOME Terminal Emulator
+    gnome.gnome-tweaks # A tool to customize advanced GNOME 3 options
+    gnome.dconf-editor # GSettings editor for GNOME
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+   
+  services.flatpak.enable = true;
+
   environment.gnome.excludePackages = (with pkgs; [
-    gnome-tour
-    gnome-console
+    gnome-tour # GNOME Greeter & Tour.
+    gnome-console # Simple user-friendly terminal emulator for the GNOME desktop.
   ]) ++ (with pkgs.gnome; [
-    epiphany # web browser
-    geary # email reader
-    tali # poker game
-    iagno # go game
-    yelp # gnome help
-    hitori # sudoku game
-    atomix # puzzle game
-    seahorse # gnome password manager
-    simple-scan
-    gnome-maps
-    gnome-weather
-    gnome-contacts
-    gnome-characters
-    gnome-disk-utility
+    epiphany # WebKit based web browser for GNOME.
+    geary # Mail client for GNOME 3.
+    tali # Sort of poker with dice and less money.
+    iagno # Computer version of the game Reversi, more popularly called Othello.
+    yelp # The help viewer in Gnome.
+    hitori # GTK application to generate and let you play games of Hitori.
+    atomix # Puzzle game where you move atoms to build a molecule.
+    seahorse # Application for managing encryption keys and passwords in the GnomeKeyring.
+    simple-scan # Simple scanning utility.
+    gnome-maps # A  map application for GNOME 3.
+    gnome-weather # Access current weather conditions and forecasts.
+    gnome-contacts # GNOME’s integrated address book.
+    gnome-characters # Simple utility application to find and insert unusual characters.
+    # gnome-disk-utility # A udisks graphical front-end.
   ]);
 
   # Allow unfree packages
