@@ -11,8 +11,12 @@ let
 in
 {  
   #Nvidia Settings
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl = {
+    enable = true;
+    # https://nixos.org/manual/nixos/stable/options.html#opt-hardware.opengl.driSupport
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   environment.systemPackages = [ nvidia-offload ];
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -22,7 +26,7 @@ in
 
     # Required for amdgpu and nvidia gpu pairings.
     # modesetting.enable = true;
-    
+
     # powerManagement.enable = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.

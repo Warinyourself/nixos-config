@@ -127,7 +127,6 @@ in {
     lshw # Provide detailed information on the hardware configuration of the machine.
     usbutils # Tools for working with USB devices, such as lsusb.
     pciutils # A collection of programs for inspecting and manipulating configuration of PCI devices, such as lspci.
-    toybox # Lightweight implementation of some Unix command line utilities like lsmod.
 
     gcc # GNU Compiler Collection.
     cmake # Cross-platform, open-source build system generator.
@@ -138,43 +137,24 @@ in {
 
     cudatoolkit # A compiler for NVIDIA GPUs, math libraries, and tools.
 
-    openvpn # A robust and highly flexible tunneling application.
-    update-systemd-resolved # Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus.
-
-    yarn # Fast, reliable, and secure dependency management for javascript.
     neovim # Vim text editor fork focused on extensibility and agility.
-    vscode # Open source source code editor developed.
-    insomnia # The most intuitive cross-platform REST API Client.
-    figma-linux # Unofficial Electron-based Figma desktop app for Linux.
-
-    dive # A tool for exploring each layer in a docker image.
-    docker-compose # Docker CLI plugin to define and run multi-container applications with Docker.
-    nodejs-16_x # Event-driven I/O framework for the V8 JavaScript engine.
-    python39 # A high-level dynamically-typed programming language.
 
     libreoffice-fresh # Comprehensive, professional-quality productivity suite, a variant of openoffice.org.
     fragments # Easy to use BitTorrent client for the GNOME desktop environment.
     bleachbit # A program to clean your computer.
-    keepassxc # Offline password manager with many features.
 
-    tdesktop # Telegram Desktop messaging app.
     baobab # Graphical application to analyse disk usage in any GNOME environment.
-    gnome.gnome-disk-utility # A udisks graphical front-end
 
-    brave # Privacy-oriented browser for Desktop and Laptop computers.
     firefox # A web browser built from Firefox source tree.
-    chromium # An open source web browser from Google.
-    obsidian # A powerful knowledge base that works on top of a local folder of plain text Markdown files.
     gparted # Graphical disk partitioning tool.
-    etcher # Flash OS images to SD cards and USB drives, safely and easily.
     vlc # Cross-platform media player and streaming server.
-    
-    qemu # A generic and open source machine emulator and virtualizer.
-    virt-manager # Desktop user interface for managing virtual machines.
 
     easytag # View and edit tags for various audio files.
     picard # The official MusicBrainz tagger.
     amberol # A small and simple sound and music player.
+
+    tdesktop # Telegram Desktop messaging app. ? (не ставится в home-manager)
+    blender # 3D Creation/Animation/Publishing System.
 
     gnome.gedit # Official text editor of the GNOME desktop environment.
     gnome-icon-theme # Collection of icons for the GNOME 2 desktop. ?
@@ -183,16 +163,22 @@ in {
     gnome.dconf-editor # GSettings editor for GNOME
   ];
 
+  services.spice-vdagentd.enable = true;
+
+  # Настройка для работы nvidia в blender
+  nixpkgs.config.packageOverrides = self : rec {
+    blender = self.blender.override {
+      cudaSupport = true;
+    };
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-   
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
 
   environment.gnome.excludePackages = (with pkgs; [
     gnome-tour # GNOME Greeter & Tour.
@@ -211,7 +197,7 @@ in {
     gnome-weather # Access current weather conditions and forecasts.
     gnome-contacts # GNOME’s integrated address book.
     gnome-characters # Simple utility application to find and insert unusual characters.
-    # gnome-disk-utility # A udisks graphical front-end.
+    gnome-disk-utility # A udisks graphical front-end.
   ]);
 
   # Allow unfree packages
@@ -228,5 +214,5 @@ in {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }

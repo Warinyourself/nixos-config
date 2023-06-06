@@ -12,7 +12,6 @@
     hashedPassword = "$y$j9T$sjzaHvEAhnu4O5CfJjjUf0$dtIFzsxEhOPw0.80xd7M5DIEELP.BhvVlQ6a5L2lTr1";
     extraGroups = [
       "libvirtd"
-      "docker"
       "wheel"
       "networkmanager"
     ];

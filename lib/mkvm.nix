@@ -15,7 +15,9 @@ nixpkgs.lib.nixosSystem rec {
     ../machines/${name}.nix
     ../users/${user}/nixos.nix
     home-manager.nixosModules.home-manager {
+      # With useGlobalPkgs home-manager use the global pkgs instead uses a private pkgs.
       home-manager.useGlobalPkgs = true;
+      # useUserPackages options allows you to update home-manager with nixos-rebuild
       home-manager.useUserPackages = true;
       home-manager.users.${user} = import ../users/${user}/home-manager.nix;
     }

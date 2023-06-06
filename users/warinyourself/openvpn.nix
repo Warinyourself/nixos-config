@@ -9,7 +9,7 @@ in
     auth SHA256
     cipher AES-256-CBC
     dev tun
-    tun-mtu 1400
+    tun-mtu 1500
     mode p2p
 
     remote openvpn.o3.ru 1194 udp
